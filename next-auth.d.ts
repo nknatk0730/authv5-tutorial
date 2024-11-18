@@ -1,25 +1,28 @@
-// import { User } from '@auth/core/types';
-import { DefaultSession } from '@auth/core/types';
-import { DefaultJWT } from 'next-auth/jwt';
+import { DefaultSession, User } from '@auth/core/types';
+import { UserRole } from '@prisma/client';
 
 // declare module '@auth/core/types' {
 //   interface ExtendedUser extends User {
-//     requiredId: string;
-//   }
-// }
+//     role: string;
+//   };
+// };
+
+export type ExtendedUser = User & {
+  role: UserRole;
+  isTwoFactorEnabled: boolean;
+  isOAuth: boolean;
+};
 
 declare module '@auth/core/types' {
   interface Session extends DefaultSession {
-    user: {
-      role: string;
-    }
-  }
-}
+    user: ExtendedUser;
+  };
+};
 
 declare module '@auth/core/jwt' {
   interface JWT extends DefaultJWT {
-    role: string;
-  }
-}
-
-
+    role: UserRole;
+    isTwoFactorEnabled: boolean;
+    isOAuth: boolean;
+  };
+};

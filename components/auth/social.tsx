@@ -6,14 +6,19 @@ import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Button } from "../ui/button";
 import { FormError } from "../form-error";
+import { useSearchParams } from "next/navigation";
 
 export const Social = () => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
   const onClick = (provider: "google" | "github") => {
     setError('');
     startTransition(async () => {
-      const data = await oauthLogin(provider);
+      const data = await oauthLogin(provider, {
+        callbackUrl
+      });
       setError(data?.error);
     });
   };

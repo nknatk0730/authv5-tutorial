@@ -20,7 +20,7 @@ import { z } from "zod";
 
 
 export default function Page() {
-  const { user } = useCurrentUser();
+  const  user  = useCurrentUser();
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<string>();
   const { update } = useSession();

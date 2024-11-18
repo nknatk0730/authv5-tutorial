@@ -9,7 +9,7 @@ import { LogoutButton } from "./logout-button";
 import { ExitIcon } from "@radix-ui/react-icons";
 
 export const UserButton = () => {
-  const { user } = useCurrentUser();
+  const  user  = useCurrentUser();
 
   return (
     <DropdownMenu>

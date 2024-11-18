@@ -1,10 +1,12 @@
 import { useSession } from "next-auth/react"
 
 export const useCurrentUser = () => {
-  const { data, status } = useSession();
+  const session = useSession();
 
-  if (status === 'loading') {
-    return { user: null, loading: true };
+  if (session.status === "loading") {
+    return null; // セッション情報の取得中は null を返す
   };
-  return { user: data?.user, loading: false };
+
+  return session.data?.user || null;
+
 };

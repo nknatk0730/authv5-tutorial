@@ -7,6 +7,8 @@ export const useCurrentUser = () => {
     return null; // セッション情報の取得中は null を返す
   };
 
-  return session.data?.user || null;
+  if (session.status === 'authenticated') {
+     return session.data?.user;
+  };
 
 };
